@@ -26,7 +26,7 @@ Swap is a kind of magical magic, and I am deeply impressed.
 所以在某种精确计算的情况下，可以找出一个精准的区间和流动性来使calcReachAmount计算出来的数量大于我们要兑换的数量，这样可以让系统认为我们并没有cross tick。但在最终调用calcReachAmount计算出最终价格的时候却已经是下一个区间的价格，从而在执行`swapData.currentTick = TickMath.getTickAtSqrtRatio(swapData.sqrtP);`的时候currentTick也成了区间上界tick或者下界tick。而系统认为我们并没有cross tick但实际上已经cross tick所以流动性本该减去却没有改变，当我们再反向swap时候流动性又会增加，导致流动性翻倍。
 # 题解
 
-个人觉着题目的难度可能在于代码量较大，如果之前没看过univ3可能要从头开始学，需要花较久的时间，导致好像也没太多人看这题。关于这个漏洞的exp其实在网上也能有（[https://github.com/paco0x/kyber-exploit-example](https://github.com/paco0x/kyber-exploit-example)），但并不能直接适用于我们这题，原因在于最上面的一个小改动。
+个人觉着题目的难度可能在于代码量较大，如果之前没看过univ3可能要从头开始学，需要花较久的时间，导致好像也没太多人看这题。关于这个漏洞的利用其实在网上也能有（[https://github.com/paco0x/kyber-exploit-example](https://github.com/paco0x/kyber-exploit-example)），但并不能直接适用于我们这题，原因在于最上面的一个小改动，需要选手理解原理之后手动更改一些地方。
 
 首先找到这个精确的流动性和swap兑换的数量。
 ```js
